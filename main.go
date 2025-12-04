@@ -43,7 +43,7 @@ var (
 	sortBy   = flag.String("sort", "mountpoint", "sort output by: "+strings.Join(columnIDs(), ", "))
 	width    = flag.Uint("width", 0, "max output width")
 	themeOpt = flag.String("theme", defaultThemeName(), "color themes: dark, light, ansi")
-	styleOpt = flag.String("style", defaultStyleName(), "style: unicode, ascii")
+	styleOpt = flag.String("style", defaultStyleName(), "style: unicode, ascii, plain")
 
 	availThreshold = flag.String("avail-threshold", "10G,1G", "specifies the coloring threshold (yellow, red) of the avail column, must be integer with optional SI prefixes")
 	usageThreshold = flag.String("usage-threshold", "0.5,0.9", "specifies the coloring threshold (yellow, red) of the usage bars as a floating point number from 0 to 1")
@@ -51,6 +51,8 @@ var (
 	_          = flag.BoolP("human-readable", "h", false, "ignored, just for df compatibility")
 	inodes     = flag.Bool("inodes", false, "list inode information instead of block usage")
 	jsonOutput = flag.Bool("json", false, "output all devices in JSON format")
+	noHeader   = flag.Bool("no-header", false, "hide column headers")
+	noBars     = flag.Bool("no-bars", false, "hide usage bars, show only percentage")
 	warns      = flag.Bool("warnings", false, "output all warnings to STDERR")
 	version    = flag.Bool("version", false, "display version")
 )
@@ -95,6 +97,38 @@ func parseStyle(styleOpt string) (table.Style, error) {
 		return table.StyleRounded, nil
 	case "ascii":
 		return table.StyleDefault, nil
+	case "plain":
+		// Plain style without any table decorations
+		return table.Style{
+			Name: "plain",
+			Box: table.BoxStyle{
+				BottomLeft:       "",
+				BottomRight:      "",
+				BottomSeparator:  "",
+				EmptySeparator:   "",
+				Left:             "",
+				LeftSeparator:    "",
+				MiddleHorizontal: "",
+				MiddleSeparator:  "",
+				MiddleVertical:   "",
+				PaddingLeft:      " ",
+				PaddingRight:     " ",
+				PageSeparator:    "",
+				Right:            "",
+				RightSeparator:   "",
+				TopLeft:          "",
+				TopRight:         "",
+				TopSeparator:     "",
+				UnfinishedRow:    "",
+			},
+			Options: table.Options{
+				DrawBorder:      false,
+				SeparateColumns: true,
+				SeparateFooter:  false,
+				SeparateHeader:  false,
+				SeparateRows:    false,
+			},
+		}, nil
 	default:
 		return table.Style{}, fmt.Errorf("unknown style option: %s", styleOpt)
 	}
@@ -358,5 +392,7 @@ func main() {
 		SortBy:    sortCol,
 		Style:     style,
 		StyleName: *styleOpt,
+		NoHeader:  *noHeader,
+		NoBars:    *noBars,
 	})
 }

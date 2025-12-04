@@ -19,6 +19,8 @@ type TableOptions struct {
 	SortBy    int
 	Style     table.Style
 	StyleName string
+	NoHeader  bool
+	NoBars    bool
 }
 
 // Column defines a column.
@@ -298,7 +300,9 @@ func setColumnConfigs(tab table.Writer, maxColContent map[int]int, assigned map[
 func printTable(title string, m []Mount, opts TableOptions) {
 	tab := table.NewWriter()
 	initializeTable(tab, opts)
-	appendHeaders(tab)
+	if !opts.NoHeader {
+		appendHeaders(tab)
+	}
 	appendRows(tab, m)
 
 	if tab.Length() == 0 {
@@ -342,7 +346,7 @@ func printTable(title string, m []Mount, opts TableOptions) {
 	// Define barTransformerFunc
 	barTransformerFunc := func(val interface{}) string {
 		usage := val.(float64)
-		if barWidth <= 0 {
+		if barWidth <= 0 || opts.NoBars {
 			s := fmt.Sprintf("%*s", percentWidth, fmt.Sprintf("%.1f%%", usage*100))
 			return termenv.String(s).String()
 		}
@@ -424,11 +428,14 @@ func printTable(title string, m []Mount, opts TableOptions) {
 
 	setColumnConfigs(tab, maxColContent, assigned, opts, barTransformerFunc)
 
-	suffix := "device"
-	if tab.Length() > 1 {
-		suffix = "devices"
+	// Skip title for plain style
+	if opts.StyleName != "plain" {
+		suffix := "device"
+		if tab.Length() > 1 {
+			suffix = "devices"
+		}
+		tab.SetTitle("%d %s %s", tab.Length(), title, suffix)
 	}
-	tab.SetTitle("%d %s %s", tab.Length(), title, suffix)
 
 	// tab.AppendFooter(table.Row{fmt.Sprintf("%d %s", tab.Length(), title)})
 	sortMode := table.Asc
