@@ -353,15 +353,25 @@ func printTable(title string, m []Mount, opts TableOptions) {
 
 		bw := barWidth
 		var filledChar, halfChar, emptyChar string
+		var usesBrackets bool
 		if opts.StyleName == "unicode" {
 			filledChar = "█"
 			halfChar = "▌"
 			emptyChar = " "
+			usesBrackets = false
+		} else if opts.StyleName == "plain" {
+			// Modern minimal style with line characters
+			filledChar = "━"
+			halfChar = "╸"
+			emptyChar = "─"
+			usesBrackets = false
 		} else {
+			// ASCII fallback
 			bw -= 2
-			filledChar = "#"
-			halfChar = "#"
-			emptyChar = "."
+			filledChar = "="
+			halfChar = "-"
+			emptyChar = " "
+			usesBrackets = true
 		}
 
 		filled := int(usage * float64(bw))
@@ -383,10 +393,10 @@ func printTable(title string, m []Mount, opts TableOptions) {
 		emptyStr = strings.Repeat(emptyChar, empty)
 
 		var format string
-		if opts.StyleName == "unicode" {
-			format = "%s%s %*s"
-		} else {
+		if usesBrackets {
 			format = "[%s%s] %*s"
+		} else {
+			format = "%s%s %*s"
 		}
 
 		// Apply colors
@@ -420,6 +430,9 @@ func printTable(title string, m []Mount, opts TableOptions) {
 			filledPart = filledPart.Background(bgColor).Foreground(fgColor)
 			// Use a neutral background for empty areas
 			emptyPart = emptyPart.Background(bgColor)
+		} else if opts.StyleName == "plain" {
+			// For plain style, use gray color for empty part
+			emptyPart = emptyPart.Foreground(theme.colorGray)
 		}
 
 		s := fmt.Sprintf(format, filledPart, emptyPart, percentWidth, fmt.Sprintf("%.1f%%", usage*100))
