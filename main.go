@@ -42,7 +42,7 @@ var (
 	output   = flag.String("output", "", "output fields: "+strings.Join(columnIDs(), ", "))
 	sortBy   = flag.String("sort", "mountpoint", "sort output by: "+strings.Join(columnIDs(), ", "))
 	width    = flag.Uint("width", 0, "max output width")
-	themeOpt = flag.String("theme", defaultThemeName(), "color themes: dark, light, ansi")
+	themeOpt = flag.String("theme", defaultThemeName(), "color themes: dark, light, ansi, neg")
 	styleOpt = flag.String("style", defaultStyleName(), "style: unicode, ascii, plain")
 
 	availThreshold = flag.String("avail-threshold", "10G,1G", "specifies the coloring threshold (yellow, red) of the avail column, must be integer with optional SI prefixes")

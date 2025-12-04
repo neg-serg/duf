@@ -70,6 +70,20 @@ func loadTheme(theme string) (Theme, error) {
 		colorBgGreen:  env.Color("2"),
 	}
 
+	// Cold blue-tinted theme based on custom kitty color scheme
+	themes["neg"] = Theme{
+		colorRed:      env.Color("#8A2F58"), // muted magenta-red
+		colorYellow:   env.Color("#914E89"), // purple-ish yellow
+		colorGreen:    env.Color("#287373"), // teal green
+		colorBlue:     env.Color("#477AB3"), // cold blue
+		colorGray:     env.Color("#6C7E96"), // blue-gray
+		colorMagenta:  env.Color("#5E468C"), // muted purple
+		colorCyan:     env.Color("#31658C"), // cold cyan
+		colorBgRed:    env.Color("#0d1824"), // dark blue bg
+		colorBgYellow: env.Color("#10233a"), // darker blue bg
+		colorBgGreen:  env.Color("#071526"), // darkest blue bg
+	}
+
 	if _, ok := themes[theme]; !ok {
 		return Theme{}, fmt.Errorf("unknown theme: %s", theme)
 	}
