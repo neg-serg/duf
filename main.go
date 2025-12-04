@@ -48,13 +48,14 @@ var (
 	availThreshold = flag.String("avail-threshold", "10G,1G", "specifies the coloring threshold (yellow, red) of the avail column, must be integer with optional SI prefixes")
 	usageThreshold = flag.String("usage-threshold", "0.5,0.9", "specifies the coloring threshold (yellow, red) of the usage bars as a floating point number from 0 to 1")
 
-	_          = flag.BoolP("human-readable", "h", false, "ignored, just for df compatibility")
-	inodes     = flag.Bool("inodes", false, "list inode information instead of block usage")
-	jsonOutput = flag.Bool("json", false, "output all devices in JSON format")
-	noHeader   = flag.Bool("no-header", false, "hide column headers")
-	noBars     = flag.Bool("no-bars", false, "hide usage bars, show only percentage")
-	warns      = flag.Bool("warnings", false, "output all warnings to STDERR")
-	version    = flag.Bool("version", false, "display version")
+	_           = flag.BoolP("human-readable", "h", false, "ignored, just for df compatibility")
+	inodes      = flag.Bool("inodes", false, "list inode information instead of block usage")
+	jsonOutput  = flag.Bool("json", false, "output all devices in JSON format")
+	noHeader    = flag.Bool("no-header", false, "hide column headers")
+	noBars      = flag.Bool("no-bars", false, "hide usage bars, show only percentage")
+	barStyleOpt = flag.String("bar-style", "classic", "progress bar style: classic, modern")
+	warns       = flag.Bool("warnings", false, "output all warnings to STDERR")
+	version     = flag.Bool("version", false, "display version")
 )
 
 // renderJSON encodes the JSON output and prints it.
@@ -394,5 +395,6 @@ func main() {
 		StyleName: *styleOpt,
 		NoHeader:  *noHeader,
 		NoBars:    *noBars,
+		BarStyle:  *barStyleOpt,
 	})
 }

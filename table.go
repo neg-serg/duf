@@ -21,6 +21,7 @@ type TableOptions struct {
 	StyleName string
 	NoHeader  bool
 	NoBars    bool
+	BarStyle  string
 }
 
 // Column defines a column.
@@ -354,23 +355,25 @@ func printTable(title string, m []Mount, opts TableOptions) {
 		bw := barWidth
 		var filledChar, halfChar, emptyChar string
 		var usesBrackets bool
+
+		// Determine bar characters based on style and bar-style option
 		if opts.StyleName == "unicode" {
 			filledChar = "█"
 			halfChar = "▌"
 			emptyChar = " "
 			usesBrackets = false
-		} else if opts.StyleName == "plain" {
+		} else if opts.BarStyle == "modern" {
 			// Modern minimal style with line characters
 			filledChar = "━"
 			halfChar = "╸"
 			emptyChar = "─"
 			usesBrackets = false
 		} else {
-			// ASCII fallback
+			// Classic ASCII style
 			bw -= 2
-			filledChar = "="
-			halfChar = "-"
-			emptyChar = " "
+			filledChar = "#"
+			halfChar = "#"
+			emptyChar = "."
 			usesBrackets = true
 		}
 
@@ -430,8 +433,8 @@ func printTable(title string, m []Mount, opts TableOptions) {
 			filledPart = filledPart.Background(bgColor).Foreground(fgColor)
 			// Use a neutral background for empty areas
 			emptyPart = emptyPart.Background(bgColor)
-		} else if opts.StyleName == "plain" {
-			// For plain style, use gray color for empty part
+		} else if opts.BarStyle == "modern" {
+			// For modern style, use gray color for empty part
 			emptyPart = emptyPart.Foreground(theme.colorGray)
 		}
 
