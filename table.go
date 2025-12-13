@@ -112,8 +112,8 @@ func appendRows(tab table.Writer, m []Mount) {
 			v.InodesUsed, // inodes used
 			v.InodesFree, // inodes avail
 			inodeUsage,   // inodes use%
-			termenv.String(v.Fstype).Foreground(theme.colorGray), // type
-			termenv.String(v.Device).Foreground(theme.colorGray), // filesystem
+			termenv.String(v.Fstype).Foreground(theme.colorWhite).Underline(), // type
+			formatMountpoint(v.Device), // filesystem
 			v.Total,      // size sorting helper
 			v.Used,       // used sorting helper
 			v.Free,       // avail sorting helper
