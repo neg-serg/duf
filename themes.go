@@ -83,7 +83,7 @@ func loadTheme(theme string) (Theme, error) {
 		colorGray:     env.Color("#6C7E96"), // blue-gray
 		colorMagenta:  env.Color("#5E468C"), // muted purple
 		colorCyan:     env.Color("#31658C"), // cold cyan
-		colorWhite:    env.Color("#dbdfe4"), // kitty color254 - near white
+		colorWhite:    env.Color("#a4b3c6"), // kitty color251 - soft white
 		colorBgRed:    env.Color("#0d1824"), // dark blue bg
 		colorBgYellow: env.Color("#10233a"), // darker blue bg
 		colorBgGreen:  env.Color("#071526"), // darkest blue bg
