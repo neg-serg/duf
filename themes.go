@@ -15,6 +15,7 @@ type Theme struct {
 	colorGray    termenv.Color
 	colorMagenta termenv.Color
 	colorCyan    termenv.Color
+	colorWhite   termenv.Color
 
 	colorBgRed    termenv.Color
 	colorBgYellow termenv.Color
@@ -39,6 +40,7 @@ func loadTheme(theme string) (Theme, error) {
 		colorGray:     env.Color("#B9BFCA"),
 		colorMagenta:  env.Color("#D290E4"),
 		colorCyan:     env.Color("#66C2CD"),
+		colorWhite:    env.Color("#FFFFFF"),
 		colorBgRed:    env.Color("#2d1b1b"),
 		colorBgYellow: env.Color("#2d2d1b"),
 		colorBgGreen:  env.Color("#1b2d1b"),
@@ -52,6 +54,7 @@ func loadTheme(theme string) (Theme, error) {
 		colorGray:     env.Color("#303030"),
 		colorMagenta:  env.Color("#AF00FF"),
 		colorCyan:     env.Color("#0087FF"),
+		colorWhite:    env.Color("#000000"),
 		colorBgRed:    env.Color("#ffdede"),
 		colorBgYellow: env.Color("#fff4d0"),
 		colorBgGreen:  env.Color("#e6ffe6"),
@@ -65,6 +68,7 @@ func loadTheme(theme string) (Theme, error) {
 		colorGray:     env.Color("7"),
 		colorMagenta:  env.Color("13"),
 		colorCyan:     env.Color("8"),
+		colorWhite:    env.Color("15"),
 		colorBgRed:    env.Color("1"),
 		colorBgYellow: env.Color("3"),
 		colorBgGreen:  env.Color("2"),
@@ -79,6 +83,7 @@ func loadTheme(theme string) (Theme, error) {
 		colorGray:     env.Color("#6C7E96"), // blue-gray
 		colorMagenta:  env.Color("#5E468C"), // muted purple
 		colorCyan:     env.Color("#31658C"), // cold cyan
+		colorWhite:    env.Color("#617287"), // kitty bright white
 		colorBgRed:    env.Color("#0d1824"), // dark blue bg
 		colorBgYellow: env.Color("#10233a"), // darker blue bg
 		colorBgGreen:  env.Color("#071526"), // darkest blue bg

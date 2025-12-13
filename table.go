@@ -65,6 +65,26 @@ func appendHeaders(tab table.Writer) {
 	tab.AppendHeader(headers)
 }
 
+// formatMountpoint formats a mountpoint path with colored slashes.
+// Path segments are colored with colorWhite, slashes with colorBlue.
+func formatMountpoint(path string) string {
+	if path == "/" {
+		return termenv.String("/").Foreground(theme.colorBlue).String()
+	}
+
+	parts := strings.Split(path, "/")
+	var result strings.Builder
+	for i, part := range parts {
+		if i > 0 {
+			result.WriteString(termenv.String("/").Foreground(theme.colorBlue).String())
+		}
+		if part != "" {
+			result.WriteString(termenv.String(part).Foreground(theme.colorWhite).String())
+		}
+	}
+	return result.String()
+}
+
 // appendRows adds data rows to the table for each mount.
 func appendRows(tab table.Writer, m []Mount) {
 	for _, v := range m {
@@ -83,7 +103,7 @@ func appendRows(tab table.Writer, m []Mount) {
 		}
 
 		tab.AppendRow([]interface{}{
-			termenv.String(v.Mountpoint).Foreground(theme.colorBlue), // mounted on
+			formatMountpoint(v.Mountpoint), // mounted on
 			v.Total,      // size
 			v.Used,       // used
 			v.Free,       // avail
