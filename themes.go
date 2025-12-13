@@ -79,11 +79,11 @@ func loadTheme(theme string) (Theme, error) {
 		colorRed:      env.Color("#8A2F58"), // muted magenta-red
 		colorYellow:   env.Color("#914E89"), // purple-ish yellow
 		colorGreen:    env.Color("#287373"), // teal green
-		colorBlue:     env.Color("#477AB3"), // cold blue
+		colorBlue:     env.Color("#005faf"), // kitty color25 - bright blue
 		colorGray:     env.Color("#6C7E96"), // blue-gray
 		colorMagenta:  env.Color("#5E468C"), // muted purple
 		colorCyan:     env.Color("#31658C"), // cold cyan
-		colorWhite:    env.Color("#617287"), // kitty bright white
+		colorWhite:    env.Color("#dbdfe4"), // kitty color254 - near white
 		colorBgRed:    env.Color("#0d1824"), // dark blue bg
 		colorBgYellow: env.Color("#10233a"), // darker blue bg
 		colorBgGreen:  env.Color("#071526"), // darkest blue bg
