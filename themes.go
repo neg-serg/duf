@@ -76,9 +76,9 @@ func loadTheme(theme string) (Theme, error) {
 
 	// Cold blue-tinted theme based on custom kitty color scheme
 	themes["neg"] = Theme{
-		colorRed:      env.Color("#8A2F58"), // muted magenta-red
-		colorYellow:   env.Color("#914E89"), // purple-ish yellow
-		colorGreen:    env.Color("#287373"), // teal green
+		colorRed:      env.Color("#3f5876"), // kitty color243
+		colorYellow:   env.Color("#3f5876"), // kitty color243
+		colorGreen:    env.Color("#3f5876"), // kitty color243
 		colorBlue:     env.Color("#005faf"), // kitty color25 - bright blue
 		colorGray:     env.Color("#6C7E96"), // blue-gray
 		colorMagenta:  env.Color("#5E468C"), // muted purple
